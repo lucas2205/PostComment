@@ -8,7 +8,9 @@ import com.project2.project2.dto.LoginDto;
 import com.project2.project2.dto.RegisterDto;
 import com.project2.project2.entity.Rol;
 import com.project2.project2.entity.Usuario;
+
 import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

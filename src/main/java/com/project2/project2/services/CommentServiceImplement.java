@@ -1,5 +1,3 @@
-
-
 package com.project2.project2.services;
 
 import com.project2.project2.dao.CommentDao;
@@ -9,8 +7,10 @@ import com.project2.project2.entity.Comment;
 import com.project2.project2.entity.Post;
 import com.project2.project2.exceptions.AppException;
 import com.project2.project2.exceptions.ResourceNotFoundException;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;

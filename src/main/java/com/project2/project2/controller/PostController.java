@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.project2.project2.dto.PostDto;
 import com.project2.project2.dto.PostResponse;
 import com.project2.project2.services.PostService;
 import com.project2.project2.util.AppConst;
+
 import javax.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 
 @RestController
 @RequestMapping("/api/posts")

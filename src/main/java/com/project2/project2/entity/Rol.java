@@ -1,8 +1,4 @@
-
-
 package com.project2.project2.entity;
-
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
