@@ -8,6 +8,8 @@ import com.project2.project2.dto.LoginDto;
 import com.project2.project2.dto.RegisterDto;
 import com.project2.project2.entity.Rol;
 import com.project2.project2.entity.Usuario;
+import com.project2.project2.security.JwtAuthResponseDto;
+import com.project2.project2.security.JwtTokenProvider;
 
 import java.util.Collections;
 
@@ -41,14 +43,21 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+    
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<JwtAuthResponseDto> authenticateUser(@RequestBody LoginDto loginDto) {
         
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(),loginDto.getPassword()));
     
         SecurityContextHolder.getContext().setAuthentication(authentication);
         
-        return new ResponseEntity<>("Ha iniciado sesion con exito!",HttpStatus.OK);
+        //OBTENEMOS EL TOKEN DEL JWTTOKENPROVIDER
+        String token = jwtTokenProvider.generateToken(authentication);
+        
+        return ResponseEntity.ok(new JwtAuthResponseDto(token));
+        
     
     }
     
