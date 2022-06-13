@@ -12,7 +12,7 @@ public class PasswordEncoderGenerator {
 		
        
        PasswordEncoder passEncoder = new BCryptPasswordEncoder();
-       System.out.println(passEncoder.encode("password "));
+       System.out.println(passEncoder.encode("lucas38209086"));
        
        
 	}

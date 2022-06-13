@@ -1,5 +1,3 @@
-
-
 package com.project2.project2.security;
 
 import com.project2.project2.exceptions.AppException;
@@ -21,52 +19,50 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
-    
+
     @Value("${app.jwt-secret}")
     private String jwtSecret;
-    
+
     @Value("${app.jwt-expiration-milliseconds}")
-    private int jwtExpiration;  
-    
-    
-    public String generateToken(Authentication authentication){
+    private int jwtExpiration;
+
+    public String generateToken(Authentication authentication) {
         String username = authentication.getName();
-        
+
         Date fechaActual = new Date();
         Date fechaExpiration = new Date(fechaActual.getTime() + jwtExpiration);
-        
+
         String token = Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(fechaExpiration)
-                        .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
-        
-        return token;     
-                
+                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+
+        return token;
+
     }
-    
-    
-    public String obtenerUsernameDelJwt(String token){
-        
+
+    public String obtenerUsernameDelJwt(String token) {
+
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-        
+
         return claims.getSubject();
     }
-    
-    public boolean validarToken(String token){
-        
-        try{
+
+    public boolean validarToken(String token) {
+
+        try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        }catch(SignatureException ex){
-            throw new AppException(HttpStatus.BAD_REQUEST,"Firma JWT no valida");
-        }catch(MalformedJwtException ex){
-            throw new AppException(HttpStatus.BAD_REQUEST,"Token JWT no valida");
-        }catch(ExpiredJwtException ex){
-            throw new AppException(HttpStatus.BAD_REQUEST,"Token JWT caducado");
-        }catch(UnsupportedJwtException ex){
-            throw new AppException(HttpStatus.BAD_REQUEST,"Token JWT no compatible");
-        }catch(IllegalArgumentException ex){
-            throw new AppException(HttpStatus.BAD_REQUEST,"Cadena Claims esta vacia");
+        } catch (SignatureException ex) {
+            throw new AppException(HttpStatus.BAD_REQUEST, "Firma JWT no valida");
+        } catch (MalformedJwtException ex) {
+            throw new AppException(HttpStatus.BAD_REQUEST, "Token JWT no valida");
+        } catch (ExpiredJwtException ex) {
+            throw new AppException(HttpStatus.BAD_REQUEST, "Token JWT caducado");
+        } catch (UnsupportedJwtException ex) {
+            throw new AppException(HttpStatus.BAD_REQUEST, "Token JWT no compatible");
+        } catch (IllegalArgumentException ex) {
+            throw new AppException(HttpStatus.BAD_REQUEST, "Cadena Claims esta vacia");
         }
-        
+
     }
 
 }

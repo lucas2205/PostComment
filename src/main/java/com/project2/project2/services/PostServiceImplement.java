@@ -69,7 +69,7 @@ public class PostServiceImplement implements PostService {
     @Override
     public PostDto getById(long id) {
         Post post = postDao.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Post", "Id", id));
+            .orElseThrow(() -> new ResourceNotFoundException("Personaje", "Id", id));
         
         return mapearDto(post);
     }
